@@ -1,5 +1,0 @@
-now my task for tomomo is
-user will input movies no genre 
-and movies list will show up right?/yeahh 
-but remember to give the movie name frmo the db itself because if you give the names that are not in db 
-then errors will be generated hmm right riand how shoud i take out this code using git right? i will google commands to do itm hmm and ill remove the url password and username frmo the code and push into the git okay? okay db will also be thr? no ill send you the db in x okok npyeah  
