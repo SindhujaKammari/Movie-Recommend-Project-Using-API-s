@@ -10,7 +10,7 @@ public class Host {
         for(Map.Entry<String, List<String>> entry : movName.entrySet()){
             System.out.println("User: " + entry.getKey()); // this is to name
             for(int k=0;k<entry.getValue().size();k++){
-                System.out.println(" "+(k+1)+". "+ entry.getValue().get(k));
+                System.out.println(entry.getValue().get(k));
             }
         } 
     }

@@ -15,7 +15,7 @@ public class UserInput {
             int count = Integer.parseInt(scanner.nextLine());
             List <String > userMovies = new ArrayList < > ();
            
-            for (int j = 0; j < count; j++) { //what is count here? the count of movies
+            for (int j = 0; j < count; j++) { //
                 System.out.print("Enter the movie number " + (j+1)+" : ");
                 String movie = scanner.nextLine();
                 userMovies.add(movie);
@@ -23,8 +23,9 @@ public class UserInput {
             movName.put(userName,userMovies);
         }
         // sending the data to the MakeAdecision fun to get the result 
-        MovieDecision.GenreSelector(movName);
-        //to print results on call
-        //printSelectedMovies(movName);
+    
+        //MovieDecision.GenreSelector(movName);
+        GenreDecision.genreReturn(movName);
+       
     }
 }

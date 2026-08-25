@@ -1,0 +1,9 @@
+{
+    "code-runner.executorMap": {
+        "java": "javac -cp \"libraries/*;.\" $fileName && java -cp \"libraries/*;.\" $fileNameWithoutExt"
+    },
+    "code-runner.runInTerminal": true,
+    "java.project.referencedLibraries": [
+        "libraries/**/*.jar"
+    ]
+}
