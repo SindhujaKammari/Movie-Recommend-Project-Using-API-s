@@ -23,7 +23,6 @@ public class UserInput {
             movName.put(userName,userMovies);
         }
         // sending the data to the MakeAdecision fun to get the result 
-    
         //MovieDecision.GenreSelector(movName);
         GenreDecision.genreReturn(movName);
        

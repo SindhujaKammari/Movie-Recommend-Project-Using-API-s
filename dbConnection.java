@@ -4,9 +4,9 @@ public class dbConnection {
 
     public static Connection getConnection() {
         try {
-            String url = "jdbc:mysql://localhost:3306/my_database";
+            String url = "jdbc:mysql://localhost:3306/movie_project";
             String username = "root";
-            String password = "NewPassword123!"; // this is password set by you
+            String password = "Sindhu@2005"; // this is password set by you
 
             Connection con = DriverManager.getConnection(url, username, password);
 
