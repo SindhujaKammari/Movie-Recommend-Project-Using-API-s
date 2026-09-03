@@ -1,5 +1,9 @@
 
-import java.util.*; 
+import java.util.ArrayList; 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 public class UserInput {
     static Scanner scanner = new Scanner(System.in);
@@ -24,7 +28,8 @@ public class UserInput {
         }
         // sending the data to the MakeAdecision fun to get the result 
         //MovieDecision.GenreSelector(movName);
-        GenreDecision.genreReturn(movName);
+        //
+        //GenreDecision.genreReturn(movName);
        
     }
 }
