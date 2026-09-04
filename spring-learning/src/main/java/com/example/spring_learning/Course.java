@@ -1,4 +1,7 @@
 package com.example.spring_learning;
+
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 
@@ -12,12 +15,17 @@ public class Course {
     @Positive(message="Enter a proper Title Duration")
     private String titleDuration;
 
+    @NotNull(message = "Price is required")
+    @DecimalMin(value = "0.0", inclusive = true, message = "Price cannot be negative")
+    public double price;
+
     public Course(){}
 
-    public  Course(int id, String courseName , String titleDuration){
+    public  Course(int id, String courseName , String titleDuration , double price){
         this.id = id;
         this.courseName = courseName;
         this.titleDuration = titleDuration; 
+        this.price = price;
     }
 
     //getters
@@ -30,6 +38,9 @@ public class Course {
     public String getTitleDuration(){
         return titleDuration;
     }
+    public double getPrice(){
+        return price;
+    }
 
     //setters
     public void setId(int id){
@@ -40,5 +51,8 @@ public class Course {
     }
     public void setTitleDuration(String titleDuration){
         this.titleDuration = titleDuration;
+    }
+    public void setPrice(double price){
+        this.price = price;
     }
 }
