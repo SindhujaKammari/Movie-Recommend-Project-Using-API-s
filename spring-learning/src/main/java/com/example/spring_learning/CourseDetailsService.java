@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CourseDetailsService {
-    private List<Course> courseDetails = new ArrayList<>(Arrays.asList(
-                    new Course(1, "Java Spring Boot", "10 Weeks", 200),
+    private final List<Course> courseDetails = new ArrayList<>(Arrays.asList(
+                    new Course(1, "Java Spring Boot", "10 Weeks", 200.55),
                     new Course(2, "React Basics", "6 Weeks", 150.55),
                     new Course(3, "Node.js Fundamentals", "5 Weeks", 100.55),
                     new Course(4, "JavaScript Essentials", "4 Weeks", 80.55),
@@ -43,6 +43,7 @@ public class CourseDetailsService {
             if(id == course.getId()){
                 course.setCourseName(updateCourse.getCourseName());
                 course.setTitleDuration(updateCourse.getTitleDuration());
+                course.setPrice(updateCourse.getPrice());
                 return course;
             }
         }

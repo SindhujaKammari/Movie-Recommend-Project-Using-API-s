@@ -1,30 +1,26 @@
 package com.example.spring_learning;
 
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-
+import jakarta.validation.constraints.*;
 
 public class Course {
     @Positive(message="Enter a proper Id")
     private int id;
 
-    @Positive(message="Enter a proper Course Name")
+    @NotBlank(message="Enter a proper Course Name") 
     private String courseName;
 
-    @Positive(message="Enter a proper Title Duration")
+    @NotBlank(message="Enter a proper Title Duration")
     private String titleDuration;
 
-    @NotNull(message = "Price is required")
     @DecimalMin(value = "0.0", inclusive = true, message = "Price cannot be negative")
-    public double price;
+    private double price;
 
     public Course(){}
 
-    public  Course(int id, String courseName , String titleDuration , double price){
+    public Course(int id, String courseName, String titleDuration, double price){
         this.id = id;
         this.courseName = courseName;
-        this.titleDuration = titleDuration; 
+        this.titleDuration = titleDuration;
         this.price = price;
     }
 

@@ -1,7 +1,6 @@
 package com.example.spring_learning;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,8 +16,11 @@ import jakarta.validation.Valid;
 @RestController
 public class CourseDetailsController {
 
-    @Autowired 
-    private CourseDetailsService courseDetailsService;
+    private final CourseDetailsService courseDetailsService;
+
+    public CourseDetailsController(CourseDetailsService courseDetailsService) {
+        this.courseDetailsService = courseDetailsService;
+    }
 
     // Get all courses
     @GetMapping("/courses")
