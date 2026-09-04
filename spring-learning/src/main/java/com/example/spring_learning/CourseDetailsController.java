@@ -1,8 +1,6 @@
 package com.example.spring_learning;
-
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,11 +11,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class CourseDetailsController {
 
-    @Autowired 
-    private CourseDetailsService courseDetailsService;
+    private final CourseDetailsService courseDetailsService;
+
+    public CourseDetailsController(CourseDetailsService courseDetailsService) {
+        this.courseDetailsService = courseDetailsService;
+    }
 
     // Get all courses
     @GetMapping("/courses")
@@ -36,7 +39,7 @@ public class CourseDetailsController {
     }
 
     @PostMapping("/courses")
-    public ResponseEntity<String> addCourse(@RequestBody List<Course> course) {
+    public ResponseEntity<String> addCourse(@Valid @RequestBody Course course) {
         if(course != null){
             courseDetailsService.addCourse(course);
         return ResponseEntity.status(HttpStatus.CREATED).body("Course added successfully!");
@@ -46,7 +49,7 @@ public class CourseDetailsController {
 
     //modify existing data using id
     @PutMapping("/courses/{id}")
-    public Course updateCourse(@PathVariable int id , @RequestBody Course updateCourse){
+    public Course updateCourse(@PathVariable int id , @Valid @RequestBody Course updateCourse){
         return courseDetailsService.updateCourse(id,updateCourse);
     }
 
