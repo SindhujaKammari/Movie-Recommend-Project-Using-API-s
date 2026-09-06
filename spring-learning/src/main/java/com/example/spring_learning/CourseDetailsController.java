@@ -49,8 +49,8 @@ public class CourseDetailsController {
 
     //modify existing data using id
     @PutMapping("/courses/{id}")
-    public Course updateCourse(@PathVariable int id , @Valid @RequestBody Course updateCourse){
-        return courseDetailsService.updateCourse(id,updateCourse);
+    public ResponseEntity<?> updateCourse(@PathVariable int id , @Valid @RequestBody Course updateCourse){
+        return ResponseEntity.ok(courseDetailsService.updateCourse(id,updateCourse));
     }
 
     @DeleteMapping("/courses/{id}")

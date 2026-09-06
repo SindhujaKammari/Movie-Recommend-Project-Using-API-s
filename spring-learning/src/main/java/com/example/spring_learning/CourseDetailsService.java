@@ -1,62 +1,62 @@
 package com.example.spring_learning;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+
 
 @Service
 public class CourseDetailsService {
-    private final List<Course> courseDetails = new ArrayList<>(Arrays.asList(
-                    new Course(1, "Java Spring Boot", "10 Weeks", 200.55),
-                    new Course(2, "React Basics", "6 Weeks", 150.55),
-                    new Course(3, "Node.js Fundamentals", "5 Weeks", 100.55),
-                    new Course(4, "JavaScript Essentials", "4 Weeks", 80.55),
-                    new Course(5, "Data Structures in Java", "8 Weeks", 130.55),
-                    new Course(6, "REST API Design", "3 Weeks", 110.55),
-                    new Course(7, "Full-Stack Web Dev", "12 Weeks", 300.55),
-                    new Course(8, "SQL & Database Design", "4 Weeks", 90.55),
-                    new Course(9, "Git & GitHub Mastery", "2 Weeks", 50.55),
-                    new Course(10, "Python for Beginners", "6 Weeks", 85.55)
-                ));
+    private CourseRepository courseRepository;
 
+    public CourseDetailsService(CourseRepository courseRepository){
+        this.courseRepository = courseRepository;
+    }
+
+    //get all the courses
     public List<Course> getCourseDetails(){
-        return courseDetails ;
+        return courseRepository.findAll();
     }
 
+    //get the course by particular ID
     public Course getCourseById(int id){
-        for(Course course : courseDetails){
-            if(id == course.getId()){
-                return course;
-            }
+        return courseRepository.findById(id).orElse(null);
+    }
+    
+    //add the course into db
+    public String addCourse(Course course){
+        if(course != null){
+            courseRepository.save(course);
+            return "Added Succesfully!";
+        }
+        return "Nothing is there to be added ";
+    }
+
+
+    //updating/modifying the course using particular ID
+    @Transactional
+    public Course updateCourse(int id , Course updateCourse ){
+        Course course = courseRepository.findById(id).orElse(null);
+        if(course !=null){
+            course.setCourseName(updateCourse.getCourseName());
+            course.setTitleDuration(updateCourse.getTitleDuration());
+            course.setPrice(updateCourse.getPrice());
+            System.out.println("Updated Successfully!");
+            return course;
         }
         return null;
     }
 
-    public void addCourse(Course course1){
-       courseDetails.add(course1);
-    }
-
-    //update the existing course
-    public Course updateCourse(int id , Course updateCourse){
-        for(Course course: courseDetails){
-            if(id == course.getId()){
-                course.setCourseName(updateCourse.getCourseName());
-                course.setTitleDuration(updateCourse.getTitleDuration());
-                course.setPrice(updateCourse.getPrice());
-                return course;
-            }
+    //Delete the course from db;
+    @Transactional
+    public String deleteCourse(int id){
+        Course course = courseRepository.findById(id).orElse(null);
+        if(course != null){
+            courseRepository.delete(course);
+            return "Deleted Successfully!";
         }
-        return null;
+        return "Data NOt Found";
     }
-
-    //delete the existing course
-    public List<Course> deleteCourse(int id){
-        boolean removeCourse = courseDetails.removeIf(course -> id == course.getId());
-        if(removeCourse){
-            return courseDetails;
-        }
-        return null;
-    }
-
 }
