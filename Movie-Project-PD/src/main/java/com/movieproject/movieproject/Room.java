@@ -4,42 +4,72 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.movieproject.movieproject.DTO.Leader;
-import com.movieproject.movieproject.DTO.userDto;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-@Entity 
-@Table(name="Room")
+@Entity
+@Table(name = "rooms")
 public class Room {
-    
-    @Id 
-    @Column(name="roomId")
-    public String roomId;
 
-    @ElementCollection
-    private List<userDto> users = new ArrayList<>();
+    @Id
+    @Column(name = "room_id")
+    private String roomId;
 
-    @Embedded 
+    @Embedded
     private Leader leader;
 
-    public Room(){}
+    @OneToMany(
+            mappedBy = "room",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<User> users = new ArrayList<>();
 
-    public Room(Leader leader , String roomId){
+    public Room() {
+    }
+
+    public Room(Leader leader, String roomId) {
         this.leader = leader;
         this.roomId = roomId;
     }
 
-    public String getRoomId(){ return roomId;}
-    public Leader getLeader(){ return leader;}
-    public List<userDto> getUsers(){ return users;}
+    public String getRoomId() {
+        return roomId;
+    }
 
-    public void setRoomId(String roomId){this.roomId = roomId;}
-    public void setLeader(Leader leader){this.leader = leader;}
-    public void setUsers(List<userDto> users){this.users = users;}
+    public Leader getLeader() {
+        return leader;
+    }
 
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setRoomId(String roomId) {
+        this.roomId = roomId;
+    }
+
+    public void setLeader(Leader leader) {
+        this.leader = leader;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public void addUser(User user) {
+        users.add(user);
+        user.setRoom(this);
+    }
+
+    public void removeUser(User user) {
+        users.remove(user);
+        user.setRoom(null);
+    }
 }

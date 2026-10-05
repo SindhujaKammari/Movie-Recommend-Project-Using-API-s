@@ -1,43 +1,102 @@
 package com.movieproject.movieproject;
+
+import java.util.List;
+import java.util.Random;
+
 import org.springframework.stereotype.Service;
 
+import com.movieproject.movieproject.DTO.Leader;
 import com.movieproject.movieproject.DTO.userDto;
-import com.movieproject.movieproject.JPA_Repos.roomRepo;
+import com.movieproject.movieproject.JPA_Repos.RoomRepo;
 
-@Service 
+@Service
 public class UserService {
-    private String Id;
-    
-    private final roomRepo roomRepo;
-    private final Room room = new Room();
-    public UserService(roomRepo roomRepo){this.roomRepo = roomRepo;}
 
-    public boolean checkId(String id){
-        return Id.equals(id);
+    private final RoomRepo roomRepo;
+
+    public UserService(RoomRepo roomRepo) {
+        this.roomRepo = roomRepo;
     }
 
-    public userDto MovieData(userDto userChoice){
-        if(userChoice!=null){
-            return userChoice;
+    public String createID(String status, Leader leader) {
+
+        if (!status.equalsIgnoreCase("leader")) {
+            return null;
         }
-        return null;
-    }
 
-    public String createID(String status){
         String alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-        String generatedId = "";
-        for(int i =0 ; i<6 ; i++){
-            int randomIndexFromAlphabets = (int)(Math.floor(Math.random()*(alphabets.length())));
-            generatedId += ""+alphabets.charAt(randomIndexFromAlphabets);
-        }
-        room.setRoomId(generatedId);
-        roomRepo.save(room);
-        if(status.equalsIgnoreCase("leader")){
-            Id = generatedId;
-            return generatedId;
-        }
 
-        return "Id is not generated properly! please consider re-filling the status";
+        String generatedId;
+
+        do {
+            StringBuilder idBuilder = new StringBuilder();
+
+            for (int i = 0; i < 6; i++) {
+                int randomIndex =
+                        new Random().nextInt(alphabets.length());
+
+                idBuilder.append(alphabets.charAt(randomIndex));
+            }
+
+            generatedId = idBuilder.toString();
+
+        } while (roomRepo.existsById(generatedId));
+
+        leader.setId(generatedId);
+
+        Room room = new Room(leader, generatedId);
+
+        roomRepo.save(room);
+
+        return generatedId;
     }
 
+    public boolean checkId(String id) {
+
+        if (id == null || id.isBlank()) {
+            return false;
+        }
+
+        return roomRepo.existsById(id);
+    }
+
+    public User joinRoom(String roomId, userDto userChoice) {
+
+        if (roomId == null || userChoice == null) {
+            return null;
+        }
+
+        Room room = roomRepo.findById(roomId).orElse(null);
+
+        if (room == null) {
+            return null;
+        }
+
+        User user = new User(
+                userChoice.getUserName(),
+                userChoice.getMovieList()
+        );
+
+        room.addUser(user);
+
+        roomRepo.save(room);
+
+        return user;
+    }
+
+    public List<User> getUsers(String roomId) {
+
+        Room room = roomRepo.findById(roomId).orElse(null);
+
+        if (room == null) {
+            return null;
+        }
+
+        return room.getUsers();
+    }
+
+    public Room getRoom(String roomId) {
+
+        return roomRepo.findById(roomId).orElse(null);
+    }
 }
