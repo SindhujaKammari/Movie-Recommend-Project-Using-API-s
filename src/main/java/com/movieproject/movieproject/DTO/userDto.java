@@ -1,30 +1,39 @@
 package com.movieproject.movieproject.DTO;
-import java.util.ArrayList;
+
 import java.util.List;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Embeddable;
+public class UserDTO {
+    public String roomId;
+    public String userName;
+    public List<String> movieList;
 
-@Embeddable 
-public class userDto {
-    private String userName;
+    public UserDTO(){}
+    public UserDTO(String roomId, String userName, List<String> movieList) {
+		this.roomId = roomId;
+		this.userName = userName;
+		this.movieList = movieList;
+	}
 
-    @ElementCollection 
-    private List<String> movieList;
-
-
-    public userDto(){
-        this.movieList = new ArrayList<>();
+    public String getRoomId() {
+        return roomId;
+    }
+	public void setRoomId(String roomId) {
+        this.roomId = roomId;
     }
 
-    public userDto(String userName, List<String> movieList){
-        this.userName = userName ;
-        this.movieList = (movieList!=null)? movieList: new ArrayList<>();
+    public String getUserName() {
+        return userName;
     }
 
-    public String getUserName(){return userName;}
-    public List<String> getMovieList(){return movieList;}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-    public void setUserName(String userName){this.userName = userName;}
-    public void setMovieList(List<String> movieList){this.movieList = movieList;}
+    public List<String> getMovieList() {
+        return movieList;
+    }
+
+    public void setMovieList(List<String> movieList) {
+        this.movieList = movieList;
+    }
 }

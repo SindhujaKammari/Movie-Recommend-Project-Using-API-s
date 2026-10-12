@@ -9,5 +9,4 @@ class MovieprojectApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
