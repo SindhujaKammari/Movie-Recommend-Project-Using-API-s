@@ -29,17 +29,13 @@ public class UserController {
         this.omdbService = omdbService;
     }
     
-    @PostMapping("/student/api")
-    public ResponseEntity<?> random(){
-        return ResponseEntity.ok("Successfully entered");
-    }
-
     @PostMapping("/createRoom")
     public ResponseEntity<?> createRoom(@RequestBody CreateRoom createRoom){
         String newRoomId = userService.generateRoomId();
         createRoom.setRoomId(newRoomId);
         CreateRoom newData = userService.saveData(createRoom);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(newData);
+        //this will create the roomId we have to give the numberOfusers as input in JSON format
     }
 
     @PostMapping("/join/{roomId}")

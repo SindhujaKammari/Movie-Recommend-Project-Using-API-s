@@ -26,7 +26,6 @@ public class User {
     @JoinColumn(name="roomId")
     private CreateRoom createRoom;
 
-
     @NotNull 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition="json")
