@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class OMDB {
     @JsonProperty("Title")
-    private String movieName;
+    private String title;
 
     @JsonProperty("Genre")
     private String genre;
@@ -14,18 +14,18 @@ public class OMDB {
 
     public OMDB() {}
 
-    public OMDB(String genre, String movieName, boolean response) {
+    public OMDB(String genre, String title, boolean response) {
         this.genre = genre;
-        this.movieName = movieName;
+        this.title = title;
         this.response = response;
     }
 
-    public String getMovieName() {
-        return movieName;
+    public String getTitle() {
+        return title;
     }
 
-    public void setMovieName(String movieName) {
-        this.movieName = movieName;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getGenre() {
@@ -44,3 +44,4 @@ public class OMDB {
         this.response = response;
     }
 }
+

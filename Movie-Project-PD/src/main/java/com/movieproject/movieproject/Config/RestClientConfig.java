@@ -16,5 +16,5 @@ public class RestClientConfig {
         return RestClient.builder()
                 .baseUrl("https://www.omdbapi.com") // The base website address
                 .build();
-    }
+    } 
 }

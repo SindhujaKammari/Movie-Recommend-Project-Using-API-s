@@ -7,7 +7,7 @@ import com.movieproject.movieproject.DTO.UserDTO;
 import com.movieproject.movieproject.JPA_Repos.RoomRepository;
 import com.movieproject.movieproject.JPA_Repos.UserRepo;
 
-@Service
+@Service 
 public class UserService {
     private final RoomRepository roomRepo;
     private final UserRepo userRepo;
@@ -16,7 +16,7 @@ public class UserService {
         this.roomRepo = roomRepo ;
         this.userRepo = userRepo;
     }
-
+    
     public String generateRoomId(){
         String generateId = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         String resultId ="";
@@ -35,7 +35,7 @@ public class UserService {
         if(roomId != null && !roomId.isBlank()){
             return roomRepo.findById(roomId).isPresent();
         }
-        return false;
+        return false; 
     }
 
    public UserDTO joinRoom(UserDTO newUserDTO) {
@@ -59,5 +59,5 @@ public class UserService {
         return newUserDTO;
     }
 
-
+    
 }

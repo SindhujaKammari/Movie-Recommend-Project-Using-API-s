@@ -18,16 +18,15 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 @Table(name = "movie_room")
 public class User {
-    @Id
+    @Id 
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long userId;
 
-    @ManyToOne
+    @ManyToOne  
     @JoinColumn(name="roomId")
     private CreateRoom createRoom;
 
-
-    @NotNull
+    @NotNull 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition="json")
     private List<String> movieList;

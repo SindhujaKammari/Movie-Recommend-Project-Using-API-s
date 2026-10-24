@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="RoomDetails")
 public class CreateRoom {
-    @Id
+    @Id 
     private String roomId;
     private Integer numOfUsers;
 

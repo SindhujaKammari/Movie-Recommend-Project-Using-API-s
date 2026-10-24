@@ -18,28 +18,24 @@ import com.movieproject.movieproject.Service_files.UserService;
 
 
 
-@RestController
+@RestController 
 public class UserController {
-
+    
     private final UserService userService;
     private final OMDBService omdbService;
-
+    
     public UserController(UserService userService, OMDBService omdbService){
         this.userService = userService;
         this.omdbService = omdbService;
     }
-
-    @PostMapping("/student/api")
-    public ResponseEntity<?> random(){
-        return ResponseEntity.ok("Successfully entered");
-    }
-
+    
     @PostMapping("/createRoom")
     public ResponseEntity<?> createRoom(@RequestBody CreateRoom createRoom){
         String newRoomId = userService.generateRoomId();
         createRoom.setRoomId(newRoomId);
         CreateRoom newData = userService.saveData(createRoom);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(newData);
+        //this will create the roomId we have to give the numberOfusers as input in JSON format
     }
 
     @PostMapping("/join/{roomId}")
@@ -52,7 +48,7 @@ public class UserController {
         }
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("WRONG ID");
     }
-
+    
     @PostMapping("/join/verified")
     public ResponseEntity<?> joinUsers(@RequestBody UserDTO user){
         if(user != null){
@@ -64,9 +60,9 @@ public class UserController {
     @GetMapping("/results")
     public ResponseEntity<?> getResults(@RequestBody UserDTO userDto){
         if(userDto != null){
-            return ResponseEntity.ok(omdbService.getResults(userDto));
+            return ResponseEntity.ok(omdbService.movieData(userDto));
         }
-
+        
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("user data must be in JSON format!");
     }
 }
